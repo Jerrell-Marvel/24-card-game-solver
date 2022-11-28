@@ -15,10 +15,33 @@ for (let i = 0; i < operators.length; i++) {
   }
 }
 
+const getParanthesesCombinations = (numbers, operators) => {
+  const [num1, num2, num3, num4] = numbers;
+  const [op1, op2, op3] = operators;
+
+  const parantheses0 = `${num1}${op1}${num2}${op2}${num3}${op3}${num4}`;
+
+  const parantheses1 = `(${num1}${op1}${num2})${op2}${num3}${op3}${num4}`;
+  const parantheses2 = `${num1}${op1}(${num2}${op2}${num3})${op3}${num4}`;
+
+  const parantheses3 = `${num1}${op1}${num2}${op2}(${num3}${op3}${num4})`;
+
+  const parantheses4 = `(${num1}${op1}${num2})${op2}(${num3}${op3}${num4})`;
+  const parantheses5 = `(${num1}${op1}${num2}${op2}${num3})${op3}${num4}`;
+  const parantheses6 = `${num1}${op1}(${num2}${op2}${num3}${op3}${num4})`;
+  const parantheses7 = `${num1}${op1}((${num2}${op2}${num3})${op3}${num4})`;
+  const parantheses8 = `${num1}${op1}(${num2}${op2}(${num3}${op3}${num4}))`;
+  const parantheses9 = `((${num1}${op1}${num2})${op2}${num3})${op3}${num4}`;
+  const parantheses10 = `(${num1}${op1}(${num2}${op2}${num3}))${op3}${num4}`;
+
+  return [parantheses0, parantheses1, parantheses2, parantheses3, parantheses4, parantheses5, parantheses6, parantheses7, parantheses8, parantheses9, parantheses10];
+};
+
 const form = document.querySelector(".form");
 const inputTags = [...document.querySelectorAll("input")];
 const totalSolution = document.querySelector(".total-solution");
 form.addEventListener("submit", function (e) {
+  solutionContainer.innerHTML = "";
   e.preventDefault();
   const inputs = inputTags.map((tag) => tag.value);
   let inputCombinations = [];
@@ -55,24 +78,7 @@ form.addEventListener("submit", function (e) {
   console.log(inputCombinations);
   inputCombinations.forEach((inputCombination) => {
     operatorCombinations.forEach((operatorCombination) => {
-      const [num1, num2, num3, num4] = inputCombination;
-      const [op1, op2, op3] = operatorCombination;
-
-      const parantheses1 = `(${num1}${op1}${num2})${op2}${num3}${op3}${num4}`;
-      const parantheses2 = `${num1}${op1}(${num2}${op2}${num3})${op3}${num4}`;
-
-      const parantheses3 = `${num1}${op1}${num2}${op2}(${num3}${op3}${num4})`;
-
-      const parantheses4 = `(${num1}${op1}${num2})${op2}(${num3}${op3}${num4})`;
-      const parantheses5 = `(${num1}${op1}${num2}${op2}${num3})${op3}${num4}`;
-      const parantheses6 = `${num1}${op1}(${num2}${op2}${num3}${op3}${num4})`;
-      const parantheses7 = `${num1}${op1}((${num2}${op2}${num3})${op3}${num4})`;
-      const parantheses8 = `${num1}${op1}(${num2}${op2}(${num3}${op3}${num4}))`;
-      const parantheses9 = `((${num1}${op1}${num2})${op2}${num3})${op3}${num4}`;
-      const parantheses10 = `(${num1}${op1}(${num2}${op2}${num3}))${op3}${num4}`;
-
-      const paranthesesCombinations = [parantheses1, parantheses2, parantheses3, parantheses4, parantheses5, parantheses6, parantheses7, parantheses8, parantheses9, parantheses10];
-
+      const paranthesesCombinations = getParanthesesCombinations(inputCombination, operatorCombination);
       paranthesesCombinations.forEach((combination) => {
         if (eval(combination) === 24) {
           solutions++;
